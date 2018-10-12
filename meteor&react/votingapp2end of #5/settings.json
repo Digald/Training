@@ -1,0 +1,6 @@
+{
+  "admins": ["test5@test.com", "test4@test.com", "test6@test.com"],
+  "public": {
+    "admins": ["test5@test.com", "test4@test.com", "test6@test.com"]
+  }
+}
