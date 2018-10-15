@@ -25,7 +25,7 @@ $post_arr = array(
     'title' => $post->title,
     'body' => $post->body,
     'author' => $post->author,
-    'category_id' => $post->ategory_id,
+    'category_id' => $post->category_id,
     'category_name' => $post->category_name,
 );
 
