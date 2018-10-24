@@ -31,3 +31,9 @@ function awesome_theme_setup()
  * runs whatever the function you give it before a certain event. First param is action, and second is what to run.
  */
 add_action('init', 'awesome_theme_setup');
+
+add_theme_support('custom-background');
+add_theme_support('custom-header');
+add_theme_support('post-thumbnails');
+
+add_theme_support('post-formats', array('aside', 'image', 'video'));

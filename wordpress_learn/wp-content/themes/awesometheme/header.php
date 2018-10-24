@@ -23,3 +23,5 @@ endif;
 <body <?php body_class($awesome_classes)?>>
 <!-- adding custom menu to the footer calling the secondary name from functions.php -->
     <?php wp_nav_menu(array('theme_location' => 'primary'));?>
+
+    <img src="<?php header_image();?>" height="<?php echo get_custom_header()->height; ?>" width="<?php echo get_custom_header()->width; ?>" alt=""/>
