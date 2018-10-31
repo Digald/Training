@@ -8,7 +8,6 @@
 
 		<?php 
 		$currentPage = (get_query_var('paged')) ? get_query_var('paged') : 1;
-		echo $currentPage;
 		$args = array('posts_per_page' => 3, 'paged' => $currentPage);
 		query_posts($args);
 		if( have_posts() ): $i = 0;
