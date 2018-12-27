@@ -1,0 +1,15 @@
+{
+  "name": "electron-intro",
+  "version": "1.0.0",
+  "description": "Simple System Monitor",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "Mark Alaniz",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^4.0.0"
+  }
+}
