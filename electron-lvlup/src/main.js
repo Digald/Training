@@ -176,8 +176,10 @@ function openFile() {
 
   // if no files
   if (!files) return;
-
   const file = files[0];
+  console.log(file);
   const fileContent = fs.readFileSync(file).toString();
-  console.log(fileContent);
+
+  // Send filedContent to renderer
+  mainWindow.webContents.send('new-file', fileContent);
 }
