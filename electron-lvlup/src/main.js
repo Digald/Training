@@ -1,6 +1,6 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, Menu, dialog } = require("electron");
-const fs = require('fs');
+const fs = require("fs");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -8,7 +8,12 @@ let mainWindow;
 
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 800, height: 600 });
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    titleBarStyle: "hidden",
+    frame: false
+  });
 
   // and load the index.html of the app.
   mainWindow.loadURL("http://localhost:3000/");
@@ -181,5 +186,5 @@ function openFile() {
   const fileContent = fs.readFileSync(file).toString();
 
   // Send filedContent to renderer
-  mainWindow.webContents.send('new-file', fileContent);
+  mainWindow.webContents.send("new-file", fileContent);
 }
