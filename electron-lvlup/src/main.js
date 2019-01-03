@@ -11,7 +11,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    titleBarStyle: "hidden",
+    // titleBarStyle: "hidden",
+    // Use frame: false for windows to remove default windows header
     frame: false
   });
 
@@ -24,14 +25,11 @@ function createWindow() {
       label: "File",
       submenu: [
         {
-          label: "Open File",
+          label: "Open Folder",
           accelerator: "CmdOrCtrl+O",
           click() {
-            openFile();
+            openDir();
           }
-        },
-        {
-          label: "Open Folder"
         }
       ]
     },
@@ -187,4 +185,19 @@ function openFile() {
 
   // Send filedContent to renderer
   mainWindow.webContents.send("new-file", fileContent);
+}
+
+// Opens Directory
+function openDir() {
+  const directory = dialog.showOpenDialog(mainWindow, {
+    properties: ["openDirectory"]
+  });
+  if (!directory) return;
+  const dir = directory[0];
+  fs.readdir(dir, (err, files) => {
+    const filteredFiles = files.filter(file => file.includes(".md"));
+    const filePaths = filteredFiles.map(file => `${dir}/'${file}`);
+
+    mainWindow.webContents.send("new-dir", filePaths, dir);
+  });
 }
