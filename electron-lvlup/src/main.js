@@ -13,7 +13,7 @@ function createWindow() {
     height: 600,
     // titleBarStyle: "hidden",
     // Use frame: false for windows to remove default windows header
-    frame: false
+    // frame: false
   });
 
   // and load the index.html of the app.

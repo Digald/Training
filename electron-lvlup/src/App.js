@@ -7,15 +7,19 @@ import "brace/mode/markdown";
 import "brace/theme/dracula";
 import "./App.css";
 
+const settings = window.require("electron-settings");
 const { ipcRenderer } = window.require("electron");
 
 class App extends Component {
   state = {
-    loadedFile: ""
+    loadedFile: "",
+    directory: settings.get("directory") || null
   };
 
   constructor() {
     super();
+
+    // On Load
 
     ipcRenderer.on("new-file", (event, fileContent) => {
       console.log(fileContent);
@@ -28,6 +32,7 @@ class App extends Component {
       this.setState({
         directory: dir
       });
+      settings.set("directory", dir);
     });
   }
 
@@ -35,24 +40,30 @@ class App extends Component {
     return (
       <div className="App">
         <Header>Journal</Header>
-        <Split>
-          <CodeWindow>
-            <AceEditor
-              mode="markdown"
-              theme="dracula"
-              onChange={newContent => {
-                this.setState({
-                  loadedFile: newContent
-                });
-              }}
-              name="markdown_editor"
-              value={this.state.loadedFile}
-            />
-          </CodeWindow>
-          <RenderedWindow>
-            <Markdown>{this.state.loadedFile}</Markdown>
-          </RenderedWindow>
-        </Split>
+        {this.state.directory ? (
+          <Split>
+            <CodeWindow>
+              <AceEditor
+                mode="markdown"
+                theme="dracula"
+                onChange={newContent => {
+                  this.setState({
+                    loadedFile: newContent
+                  });
+                }}
+                name="markdown_editor"
+                value={this.state.loadedFile}
+              />
+            </CodeWindow>
+            <RenderedWindow>
+              <Markdown>{this.state.loadedFile}</Markdown>
+            </RenderedWindow>
+          </Split>
+        ) : (
+          <LoadingMessage>
+            <h1>Press CmdORCtrl+O to open directory</h1>
+          </LoadingMessage>
+        )}
       </div>
     );
   }
@@ -76,6 +87,15 @@ const Header = styled.header`
   width: 100%;
   z-index: 10;
   -webkit-app-region: drag;
+`;
+
+const LoadingMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #191324;
+  height: 100vh;
 `;
 
 const Split = styled.div`
